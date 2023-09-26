@@ -1,11 +1,19 @@
-> [!NOTE] This is provided as an example
+> [!NOTE]
+> This is provided as an example
 
 # Demo Jupyter JSX
 
-This requires a server to be running.
+![Image showing jupyter with jsx being rendered](image.png)
+
+> [!WARNING]
+> This requires a server to be running.
 
 The server can be run via
 `deno run -A https://raw.githubusercontent.com/luke-john/ljdj/master/server.ts`
+
+> [!WARNING]
+> This renders the JSX in an iframe. Copy/Paste does not appear to
+> work with the iframe contents.
 
 ## Basic usage
 
