@@ -36,9 +36,6 @@ export function djJSX(params: Record<string, any>) {
   };
 }
 
-/**
- * Requires server to be running
- */
 export function djSPA<TransferProps>(
   transferProps: TransferProps,
   Component: (transferProps: TransferProps) => React.ReactComponent,

@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    // Builds the htmlIndex.ts file
+    "spa:build": "cd $INIT_CWD/spa && deno run -A --node-modules-dir npm:vite build && cd $INIT_CWD && deno run -A build.ts"
+  }
+}

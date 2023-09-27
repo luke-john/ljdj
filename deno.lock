@@ -38,12 +38,8 @@
       }
     }
   },
-  "redirects": {
-    "https://deno.land/x/display/mod.ts": "https://deno.land/x/display@v0.1.1/mod.ts"
-  },
   "remote": {
     "https://deno.land/x/display@v0.1.1/format.ts": "d9a14a0db30e7ef0dc294f7d3f211cc1acacdd74ff14dddd9afe1528159bcfde",
-    "https://deno.land/x/display@v0.1.1/mod.ts": "f5ba8ee82ca1ae248e9768a3430c6de944fec27dd96b8103e4829dd66c21ea31",
-    "https://raw.githubusercontent.com/luke-john/ljdj/master/main.ts": "96fccaa7c328fd6608940019c373c106187bcf5df80aca325646a15b5ab5150f"
+    "https://deno.land/x/display@v0.1.1/mod.ts": "f5ba8ee82ca1ae248e9768a3430c6de944fec27dd96b8103e4829dd66c21ea31"
   }
 }
