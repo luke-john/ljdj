@@ -1,4 +1,9 @@
-> [!NOTE] This is provided as an example
+> [!NOTE]
+> This is provided as an example 
+
+> [!WARNING]
+> This relies on changes to support JSX in the deno repl that have not yet landed
+> see https://github.com/denoland/deno/pull/20695 for details.
 
 # Demo Jupyter JSX
 
