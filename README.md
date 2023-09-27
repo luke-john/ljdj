@@ -2,19 +2,22 @@
 
 # Demo Jupyter JSX
 
-![Image showing jupyter with jsx being rendered](image.png)
+![Gif showing jupyter with jsx being rendered and interacted with](<Screen Recording 2023-09-27 at 5.30.36 pm.gif>)
 
 ## Basic usage
 
 ```ts
 import React from "npm:react";
 import { djSSR } from "https://raw.githubusercontent.com/luke-john/ljdj/master/main.ts";
+const fruits = ["apple", "banana", "carrot"];
 
-djSSR()`
-    <ul>
-        {fruits.map((fruit, i) => <li key={i}>{fruit}</li>)}
-    </ul>
-`;
+djSSR(
+  <ul>
+    {fruits.map((fruit, i) => (
+      <li key={i} style={fruit === "apple" ? { color: "red" } : {}}>{fruit}</li>
+    ))}
+  </ul>,
+);
 ```
 
 ## SPA mode
@@ -30,7 +33,9 @@ import { djSPA } from "https://raw.githubusercontent.com/luke-john/ljdj/master/m
 const fruits = ["apple", "banana", "carrot"];
 
 djSPA(
+  // These are serialized and deserialized using JSON.stringify
   { fruits },
+  // This function is transferred via calling .toString on it.
   (transferProps) => (
     <ul>
       {fruits.map((fruit, i) => (
@@ -57,19 +62,27 @@ const fruits = ["apple", "banana", "carrot"];
 djSPA(
   { fruits },
   (transferProps) => {
-    const [state, setState] = React.useState(0);
+    // React is available inside the transferred source allowing use of react hooks.
+    const [counter, setCounter] = React.useState(1);
 
     return (
       <div>
-        <p>counters: {state}</p>
+        <p>counters: {counter}</p>
         <button
           onClick={() => {
-            // console.log(state)
-            setState(state + 1);
+            setCounter(counter + 1);
           }}
         >
-          increment counter
+          increase fruits to show
         </button>
+
+        <ul>
+          {transferProps.fruits.slice(0, counter).map((fruit, i) => (
+            <li key={i} style={fruit === "apple" ? { color: "red" } : {}}>
+              {fruit}
+            </li>
+          ))}
+        </ul>
       </div>
     );
   },
