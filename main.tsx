@@ -2,7 +2,6 @@ import React from "npm:react";
 import { renderToString } from "npm:react-dom/server";
 
 import { html } from "https://deno.land/x/display@v0.1.1/mod.ts";
-import { htmlIndexText } from "./build/htmlIndexText.ts";
 
 export function djSSR(reactNode: React.ReactNode) {
   try {
@@ -36,24 +35,35 @@ export function djJSX(params: Record<string, any>) {
   };
 }
 
-export function djSPA<TransferProps>(
+import { getHtml } from "./spa/vite-tests.ts";
+
+/**
+How this works:
+
+1. The props and component are serialized to string representations
+2. These are then written to a html string template
+3. The html string is then returned as a displayable object
+4. Jupyter then renders the html string in a Jupyter frontend
+ */
+export async function djSPA<TransferProps>(
   transferProps: TransferProps,
   Component: (transferProps: TransferProps) => React.ReactComponent,
+  comm_id: string,
+  update_display_data?: boolean,
 ) {
   try {
-    let body = decodeURI(htmlIndexText);
-    body = body.replace(
-      `globalThis.src = "() => {}"`,
-      `globalThis.src = "${encodeURIComponent(Component.toString())}"`,
-    );
-    body = body.replace(
-      `globalThis.transferProps = "{}"`,
-      `globalThis.transferProps = "${
-        encodeURIComponent(JSON.stringify(transferProps))
-      }"`,
-    );
+    const initialHtml = await getHtml({ Component, transferProps, comm_id });
 
-    return html`${body}`;
+    return Deno.jupyter.broadcast(
+      update_display_data ? "update_display_data" : "display_data",
+      {
+        data: {
+          "text/html": initialHtml,
+        },
+        metadata: {},
+        transient: { display_id: comm_id },
+      },
+    );
   } catch (error) {
     console.error(`Error: ${error}`);
   }

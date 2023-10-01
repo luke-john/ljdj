@@ -1,25 +1,40 @@
-import * as React from "react";
+import * as React from "npm:react";
 
 const commonProps = {
-  // react
   React,
 };
 
-function App() {
-  // @ts-ignore
-  const source = decodeURIComponent(globalThis.src);
-  const transferProps = JSON.parse(
-    // @ts-ignore
-    decodeURIComponent(globalThis.transferProps),
-  );
-
+export function App({ source, transferProps, comm_id }) {
   const props = Object.keys({ ...commonProps, ...transferProps });
-  const TransferredComponent = new Function(
-    ...props,
-    `return ${source}; `,
-  )(...Object.values({ ...commonProps }));
+  let jsx;
+  try {
+    const TransferredComponent = new Function(
+      ...props,
+      `return ${source}; `,
+    )(...Object.values({ ...commonProps }));
 
-  return <TransferredComponent {...transferProps} />;
+    jsx = TransferredComponent(transferProps);
+  } catch (error) {
+    jsx = (
+      <>
+        <p>
+          <strong>error:</strong> {error.message}
+        </p>
+        {error.message.endsWith("is not defined")
+          ? (
+            <p>
+              djSPA cannot only use jsx and items that can be serialized and
+              transfered via transferProps
+            </p>
+          )
+          : null}
+      </>
+    );
+  }
+
+  return (
+    <>
+      {jsx}
+    </>
+  );
 }
-
-export default App;

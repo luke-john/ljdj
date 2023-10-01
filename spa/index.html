@@ -7,12 +7,13 @@
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root"><!--ssr-outlet--></div>
   <script>
     globalThis.src = "() => {}";
     globalThis.transferProps = "{}";
+    globalThis.comm_id = "";
   </script>
-  <script type="module" src="/src/main.jsx"></script>
+  <script type="module" src="/src/client-entry.jsx"></script>
 </body>
 
 </html>
