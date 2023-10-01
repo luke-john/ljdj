@@ -5,7 +5,7 @@
 > This relies on changes to support JSX in the deno repl that have not yet landed
 > see https://github.com/denoland/deno/pull/20695 for details.
 
-# Demo Jupyter JSX
+# Demo Jupyter JSX (experimental - relies on unreleased deno features)
 
 ![Gif showing jupyter with jsx being rendered and interacted with](<Screen Recording 2023-09-27 at 5.30.36 pm.gif>)
 
